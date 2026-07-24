@@ -17,7 +17,7 @@ export function Header() {
 				<div className="flex min-w-0 items-center gap-2 sm:gap-4">
 					<Link href="/" title="Struct Polymarket Explorer" className="flex min-w-0 items-center gap-1.5 transition-opacity hover:opacity-80">
 						<StructLogoMark />
-						<span className="truncate text-sm text-foreground/90 sm:text-base">Explorer</span>
+						<span className="truncate text-sm text-foreground/90 sm:text-base">POLYⓂ️🅰️❌❌.bet</span>
 					</Link>
 					<div className="hidden h-4 w-px bg-border sm:block" />
 					<nav className="hidden items-center gap-1 sm:flex">
