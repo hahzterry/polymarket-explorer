@@ -16,10 +16,10 @@ export function Header() {
         <div className="flex min-w-0 items-center gap-2 sm:gap-4">
           <Link
             href="/"
-            title="Struct Polymarket Explorer"
+            title="POLYⓂ️🅰️❌❌.bet Polymarket Explorer"
             className="flex min-w-0 items-center gap-1.5 transition-opacity hover:opacity-80"
           >
-            <span className="truncate text-sm text-foreground/90 sm:text-base">
+            <span className="whitespace-nowrap text-xs text-foreground/90 sm:text-sm">
               POLYⓂ️🅰️❌❌.bet
             </span>
           </Link>
