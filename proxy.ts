@@ -1,52 +1,27 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 
-import { getAuthBaseUrl } from "@/lib/env";
+import { getPathSection, isPathDisabled } from "@/lib/feature-flags";
+import { renderUpcomingHtml } from "@/lib/upcoming";
 
-const GATED_PREFIXES = ["/account"];
+const RETRY_AFTER_SECONDS = 60 * 60 * 24;
 
-function isGatedRoute(pathname: string): boolean {
-	return GATED_PREFIXES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
-}
+export function proxy(request: NextRequest) {
+	const { pathname } = request.nextUrl;
 
-async function hasValidSession(request: NextRequest): Promise<boolean> {
-	const cookie = request.headers.get("cookie");
-	if (!cookie) return false;
-
-	try {
-		const response = await fetch(`${getAuthBaseUrl()}/api/auth/get-session?disableCookieCache=true`, {
-			method: "GET",
-			headers: { cookie },
-			cache: "no-store",
-		});
-
-		if (!response.ok) return false;
-
-		const payload: unknown = await response.json();
-		if (!payload || typeof payload !== "object") return false;
-		const { session, user } = payload as { session?: unknown; user?: unknown };
-		return session != null && user != null;
-	} catch {
-		return false;
-	}
-}
-
-export async function proxy(request: NextRequest) {
-	const { pathname, search } = request.nextUrl;
-
-	if (!isGatedRoute(pathname)) {
+	if (!isPathDisabled(pathname)) {
 		return NextResponse.next();
 	}
 
-	const isAuthenticated = await hasValidSession(request);
-	if (!isAuthenticated) {
-		const loginUrl = new URL("/login", request.url);
-		loginUrl.searchParams.set("redirectTo", `${pathname}${search}`);
-		return NextResponse.redirect(loginUrl);
-	}
-
-	return NextResponse.next();
+	return new NextResponse(renderUpcomingHtml(getPathSection(pathname)), {
+		status: 503,
+		headers: {
+			"Content-Type": "text/html; charset=utf-8",
+			"Retry-After": String(RETRY_AFTER_SECONDS),
+			"Cache-Control": "no-store",
+		},
+	});
 }
 
 export const config = {
-	matcher: ["/account/:path*"],
+	matcher: ["/((?!api|_next/static|_next/image|favicon.ico|sitemap|.*\\..*).*)"],
 };
