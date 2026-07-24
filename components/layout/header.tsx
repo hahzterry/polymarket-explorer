@@ -5,63 +5,70 @@ import { UserMenu } from "@/components/auth/user-menu";
 import { MobileNav } from "./mobile-nav";
 import { NAV_ITEMS } from "./nav-items";
 import { SettingsMenu } from "./settings-menu";
-import { StructLogoMark } from "../ui/svgs/struct-logo";
 import { buttonVariants } from "@/components/ui/button-variants";
 import { TooltipWrapper } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 export function Header() {
-	return (
-		<header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
-			<div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6">
-				<div className="flex min-w-0 items-center gap-2 sm:gap-4">
-					<Link href="/" title="Struct Polymarket Explorer" className="flex min-w-0 items-center gap-1.5 transition-opacity hover:opacity-80">
-						<StructLogoMark />
-						<span className="truncate text-sm text-foreground/90 sm:text-base">POLYⓂ️🅰️❌❌.bet</span>
-					</Link>
-					<div className="hidden h-4 w-px bg-border sm:block" />
-					<nav className="hidden items-center gap-1 sm:flex">
-						{NAV_ITEMS.map((item) => {
-							const link = (
-								<Link
-									key={item.href}
-									href={item.href}
-									prefetch={false}
-									target={item.external ? "_blank" : undefined}
-									rel={item.external ? "noopener noreferrer" : undefined}
-									className={
-										item.primary
-											? cn(buttonVariants({ variant: "default", size: "sm" }))
-											: "rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-									}
-								>
-									{item.label}
-								</Link>
-							);
-							if (item.primary) {
-								return (
-									<TooltipWrapper key={item.href} content="Free to get started — no credit card required">
-										{link}
-									</TooltipWrapper>
-								);
-							}
-							return link;
-						})}
-					</nav>
-				</div>
-				<div className="flex shrink-0 items-center gap-2">
-					<SearchDialog />
-					<SettingsMenu />
-					<UserMenu />
-					<Suspense fallback={<MobileNavFallback />}>
-						<MobileNav />
-					</Suspense>
-				</div>
-			</div>
-		</header>
-	);
+  return (
+    <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+          <Link
+            href="/"
+            title="Struct Polymarket Explorer"
+            className="flex min-w-0 items-center gap-1.5 transition-opacity hover:opacity-80"
+          >
+            <span className="truncate text-sm text-foreground/90 sm:text-base">
+              POLYⓂ️🅰️❌❌.bet
+            </span>
+          </Link>
+          <div className="hidden h-4 w-px bg-border sm:block" />
+          <nav className="hidden items-center gap-1 sm:flex">
+            {NAV_ITEMS.map((item) => {
+              const link = (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  prefetch={false}
+                  target={item.external ? "_blank" : undefined}
+                  rel={item.external ? "noopener noreferrer" : undefined}
+                  className={
+                    item.primary
+                      ? cn(buttonVariants({ variant: "default", size: "sm" }))
+                      : "rounded-md px-2.5 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                  }
+                >
+                  {item.label}
+                </Link>
+              );
+              if (item.primary) {
+                return (
+                  <TooltipWrapper
+                    key={item.href}
+                    content="Free to get started — no credit card required"
+                  >
+                    {link}
+                  </TooltipWrapper>
+                );
+              }
+              return link;
+            })}
+          </nav>
+        </div>
+        <div className="flex shrink-0 items-center gap-2">
+          <SearchDialog />
+          <SettingsMenu />
+          <UserMenu />
+          <Suspense fallback={<MobileNavFallback />}>
+            <MobileNav />
+          </Suspense>
+        </div>
+      </div>
+    </header>
+  );
 }
 
 function MobileNavFallback() {
-	return <div aria-hidden className="size-8 sm:hidden" />;
+  return <div aria-hidden className="size-8 sm:hidden" />;
 }
