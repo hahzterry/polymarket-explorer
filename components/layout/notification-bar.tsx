@@ -6,7 +6,7 @@ import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 
 const NOTIFICATION = {
 	version: "4",
-	message: "Struct Trades WS is 2.6s faster than Polymarket's RTDS feed",
+	message: "Polymaxx.bet is 2.6s faster than Polymarket's RTDS feed",
 	cta: "Read the benchmark",
 	href: "https://www.struct.to/blog/polymarket-rtds-vs-struct-trades-ws",
 } as const;
