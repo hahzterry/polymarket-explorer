@@ -108,18 +108,10 @@ function FooterColumns() {
         <FooterColumnLink href={"/leaderboard" as Route}>Leaderboard</FooterColumnLink>
         <FooterColumnLink href={"/analytics" as Route}>Analytics</FooterColumnLink>
       </FooterColumn>
-      <FooterColumn title="Developer">
-        <FooterColumnLink href="https://www.struct.to/rest-api" external>
-          REST API
+      <FooterColumn title="Get Started">
+        <FooterColumnLink href="https://polymarket.com/?r=cremarket" external>
+          Join Polymarket
         </FooterColumnLink>
-        <FooterColumnLink href="https://docs.struct.to/" external>
-          Documentation
-        </FooterColumnLink>
-        <FooterColumnLink href="https://github.com/structbuild/polymarket-explorer" external>
-          GitHub
-        </FooterColumnLink>
-        <FooterColumnLink href="https://x.com/structbuild" external>
-          Updates
         </FooterColumnLink>
       </FooterColumn>
     </div>
