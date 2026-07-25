@@ -112,7 +112,6 @@ function FooterColumns() {
         <FooterColumnLink href="https://polymarket.com/?r=cremarket" external>
           Join Polymarket
         </FooterColumnLink>
-        </FooterColumnLink>
       </FooterColumn>
     </div>
   );
