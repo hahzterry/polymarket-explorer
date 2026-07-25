@@ -8,7 +8,7 @@ import { SignInForm } from "./sign-in-form";
 export function SignInDialog({
 	open,
 	onOpenChange,
-	title = "Sign in to Struct",
+	title = "Sign in to Polymaxx.bet",
 	description = "Log in or create an account to continue.",
 }: {
 	open: boolean;
